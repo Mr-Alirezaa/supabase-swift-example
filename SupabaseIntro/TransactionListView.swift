@@ -17,6 +17,9 @@ struct TransactionsListView: View {
     // Controls presentation of the editor sheet for adding a sheet
     @State private var isAddingTransaction = false
 
+    // Controls presentation of the transfer sheet
+    @State private var isTransferPresented = false
+
     // Holds the transaction to be edited.
     @State private var transactionToEdit: Transaction? = nil
 
@@ -72,13 +75,20 @@ struct TransactionsListView: View {
         }
         .navigationTitle("Transactions")
         .toolbar {
-            // Toolbar item for adding a new transaction.
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     transactionToEdit = nil
                     isAddingTransaction = true
                 } label: {
                     Image(systemName: "plus")
+                }
+            }
+
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    isTransferPresented = true
+                } label: {
+                    Image(systemName: "arrow.left.arrow.right")
                 }
             }
         }
@@ -96,6 +106,13 @@ struct TransactionsListView: View {
                 accountID: transactionList.accountID
             ) { (savedTransaction: Transaction) in
                 try await transactionList.updateTransaction(savedTransaction, id: transactionToEdit.id)
+            }
+        }
+        .sheet(isPresented: $isTransferPresented) {
+            TransferView(
+                accountID: transactionList.accountID
+            ) { transfer in
+                try await transactionList.makeTransfer(transfer)
             }
         }
         .task {
@@ -179,10 +196,12 @@ struct TransactionRowView: View {
         )
     ]
 
-    TransactionsListView(
-        transactionList: _TransactionList_Preview(
-            transactions: sampleTransactions,
-            accountID: UUID()
+    NavigationStack {
+        TransactionsListView(
+            transactionList: _TransactionList_Preview(
+                transactions: sampleTransactions,
+                accountID: UUID()
+            )
         )
-    )
+    }
 }

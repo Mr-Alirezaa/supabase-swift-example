@@ -53,6 +53,7 @@ struct RootView: View {
     nonisolated private func checkCurrentSession() async {
         do {
             let session = try await supabase.auth.session
+            print(session.accessToken)
             await setSession(session)
         } catch {
             print("checkCurrentSession failed: \(error)")

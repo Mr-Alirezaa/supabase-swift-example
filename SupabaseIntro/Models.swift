@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Supabase
 
 /// Transaction Type
 ///
@@ -14,7 +15,7 @@ import Foundation
 /// ```sql
 /// CREATE TYPE transaction_type AS ENUM ('credit', 'debit');
 /// ```
-enum TransactionType: String, Codable, Hashable {
+enum TransactionType: String, Codable, Hashable, Sendable {
     case credit
     case debit
 }
@@ -26,7 +27,7 @@ enum TransactionType: String, Codable, Hashable {
 /// ```sql
 /// CREATE TYPE account_status AS ENUM ('open', 'restricted', 'closed');
 /// ```
-enum AccountStatus: String, Codable, Hashable {
+enum AccountStatus: String, Codable, Hashable, Sendable {
     case open
     case restricted
     case closed
@@ -57,7 +58,7 @@ enum AccountStatus: String, Codable, Hashable {
 ///     'open'
 /// );
 /// ```
-struct Account: Codable, Hashable, Identifiable {
+struct Account: Codable, Hashable, Identifiable, Sendable {
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case userID = "user_id"
@@ -124,7 +125,7 @@ struct Account: Codable, Hashable, Identifiable {
 ///     now()
 /// );
 /// ```
-struct Transaction: Codable, Identifiable, Hashable {
+struct Transaction: Codable, Identifiable, Hashable, Sendable {
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case accountID = "account_id"
@@ -144,4 +145,63 @@ struct Transaction: Codable, Identifiable, Hashable {
     var category: String
     var description: String?
     var date: Date
+}
+
+struct TransferRequest: Codable, Sendable {
+    var originAccount: UUID
+    var targetUserEmail: String
+    var amount: Double
+    var currency: String
+    var category: String
+    var description: String?
+}
+
+struct TransferResponse: Codable, Sendable {
+    var message: String
+    var transaction: Transaction?
+}
+
+struct ErrorResponse: Error, Decodable {
+    enum CodingKeys: String, CodingKey {
+        case message = "error"
+    }
+
+    var code: Int = -1
+    var message: String
+
+    init(code: Int = -1, message: String) {
+        self.code = code
+        self.message = message
+    }
+
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        message = try container.decode(String.self, forKey: .message)
+    }
+
+    init(code: Int = -1, decoding data: Data, with decoder: JSONDecoder = JSONDecoder()) {
+        do {
+            message = (try decoder.decode(Self.self, from: data)).message
+        } catch {
+            self.message = error.localizedDescription
+        }
+    }
+
+    init(functionsError: FunctionsError) {
+        switch functionsError {
+        case .relayError:
+            self.init(message: "Relay error")
+        case .httpError(code: let code, data: let data):
+            self.init(code: code, decoding: data)
+        }
+    }
+
+    init(error: Error) {
+        switch error {
+        case let error as FunctionsError:
+            self.init(functionsError: error)
+        default:
+            self.init(code: error._code, message: error.localizedDescription)
+        }
+    }
 }
