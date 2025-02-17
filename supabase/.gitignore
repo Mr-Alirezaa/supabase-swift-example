@@ -1,0 +1,6 @@
+.branches
+.temp
+**/*/*.npmrc
+
+.env
+.env.*
