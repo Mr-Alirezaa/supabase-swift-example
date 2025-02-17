@@ -7,16 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE4B0E292D63BF4500B931A9 /* Supabase.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EE4B0E282D63BF4500B931A9 /* Supabase.xcconfig */; };
 		EE8067BC2D58F73700ED4DD0 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = EE8067BB2D58F73700ED4DD0 /* Supabase */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE4B0E282D63BF4500B931A9 /* Supabase.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Supabase.xcconfig; sourceTree = "<group>"; };
 		EE8067A92D58F69900ED4DD0 /* SupabaseIntro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupabaseIntro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		EE4B0E272D63BEDE00B931A9 /* Exceptions for "SupabaseIntro" folder in "SupabaseIntro" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Info.plist,
+			);
+			target = EE8067A82D58F69900ED4DD0 /* SupabaseIntro */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		EE8067AB2D58F69900ED4DD0 /* SupabaseIntro */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				EE4B0E272D63BEDE00B931A9 /* Exceptions for "SupabaseIntro" folder in "SupabaseIntro" target */,
+			);
 			path = SupabaseIntro;
 			sourceTree = "<group>";
 		};
@@ -37,6 +52,7 @@
 		EE8067A02D58F69900ED4DD0 = {
 			isa = PBXGroup;
 			children = (
+				EE4B0E282D63BF4500B931A9 /* Supabase.xcconfig */,
 				EE8067AB2D58F69900ED4DD0 /* SupabaseIntro */,
 				EE8067AA2D58F69900ED4DD0 /* Products */,
 			);
@@ -118,6 +134,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE4B0E292D63BF4500B931A9 /* Supabase.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +153,7 @@
 /* Begin XCBuildConfiguration section */
 		EE8067B52D58F69A00ED4DD0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE4B0E282D63BF4500B931A9 /* Supabase.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -255,6 +273,7 @@
 		};
 		EE8067B82D58F69A00ED4DD0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE4B0E282D63BF4500B931A9 /* Supabase.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -263,6 +282,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"SupabaseIntro/Resources/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SupabaseIntro/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -291,6 +311,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"SupabaseIntro/Resources/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SupabaseIntro/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

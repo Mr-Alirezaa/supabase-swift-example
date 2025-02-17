@@ -162,3 +162,5 @@ iOSInjectionProject/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,xcode,swift,macos,deno
+
+*.local.xcconfig
