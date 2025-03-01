@@ -85,7 +85,7 @@ struct TransferView: View {
     func performTransfer() async {
         // Validate that amount is a valid number.
         guard !email.isEmpty else {
-            errorMessage = "Please enter a email for recepient."
+            errorMessage = "Please enter a email for recipient."
             return
         }
 
@@ -102,7 +102,7 @@ struct TransferView: View {
         // Create the transfer body.
         let transfer = TransferRequest(
             senderAccountID: accountID,
-            recepientEmail: email,
+            recipientEmail: email,
             amount: amount,
             currency: currency,
             category: category,
