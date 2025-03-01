@@ -11,8 +11,8 @@ import Supabase
 @main
 struct SupabaseIntroApp: App {
     let supabase = SupabaseClient(
-        supabaseURL: URL(string: "https://\(Bundle.main.infoDictionary!["SupabaseProjectID"]! as! String).supabase.co")!,
-        supabaseKey: Bundle.main.infoDictionary!["SupabaseAnonKey"]! as! String
+        supabaseURL: URL(string: "https://\(Bundle.main.supabaseProjectID).supabase.co")!,
+        supabaseKey: Bundle.main.supabaseAnonKey
     )
 
     var body: some Scene {

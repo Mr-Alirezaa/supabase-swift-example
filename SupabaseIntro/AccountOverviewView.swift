@@ -97,7 +97,11 @@ struct AccountOverviewView: View {
 
                 if let item = selectedPhotoItem {
                     if let image = try? await item.loadTransferable(type: AvatarImage.self) {
-                        try await accountOverview.saveAvatar(image)
+                        do {
+                            try await accountOverview.saveAvatar(image)
+                        }  catch {
+                            print("Failed to upload, error: \(error)")
+                        }
                     }
                 }
             }

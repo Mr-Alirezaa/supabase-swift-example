@@ -148,17 +148,21 @@ struct Transaction: Codable, Identifiable, Hashable, Sendable {
 }
 
 struct TransferRequest: Codable, Sendable {
-    var originAccount: UUID
-    var targetUserEmail: String
+    enum CodingKeys: String, CodingKey {
+        case senderAccountID = "sender_account_id"
+        case recepientEmail = "recepient_email"
+        case amount = "amount"
+        case currency = "currency"
+        case category = "category"
+        case description = "description"
+    }
+
+    var senderAccountID: UUID
+    var recepientEmail: String
     var amount: Double
     var currency: String
     var category: String
     var description: String?
-}
-
-struct TransferResponse: Codable, Sendable {
-    var message: String
-    var transaction: Transaction?
 }
 
 struct ErrorResponse: Error, Decodable {

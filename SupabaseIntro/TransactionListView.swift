@@ -11,7 +11,6 @@ import SwiftUI
 // MARK: - Transactions List View
 
 struct TransactionsListView: View {
-    // In a real app, this data might come from a ViewModel or network call.
     let transactionList: any TransactionListProtocol
 
     // Controls presentation of the editor sheet for adding a sheet
@@ -22,18 +21,6 @@ struct TransactionsListView: View {
 
     // Holds the transaction to be edited.
     @State private var transactionToEdit: Transaction? = nil
-
-    // Group transactions by the start of the day.
-    private var groupedTransactions: [Date: [Transaction]] {
-        Dictionary(grouping: transactionList.transactions) { transaction in
-            Calendar.current.startOfDay(for: transaction.date)
-        }
-    }
-
-    // Sorted list of dates for section headers (newest dates first).
-    private var sortedDates: [Date] {
-        groupedTransactions.keys.sorted(by: >)
-    }
 
     init(
         transactionList: any TransactionListProtocol,
@@ -47,7 +34,6 @@ struct TransactionsListView: View {
 
     var body: some View {
         List {
-            // Display transactions for the specific day.
             ForEach(transactionList.transactions) { transaction in
                 TransactionRowView(transaction: transaction)
                     .swipeActions(edge: .trailing) {
@@ -122,6 +108,13 @@ struct TransactionsListView: View {
                 print("Failed fetching transactions due to: \(error)")
             }
         }
+        .task {
+            do {
+                try await transactionList.observeChanges()
+            } catch {
+                print("Failed observe changes in transactions due to: \(error)")
+            }
+        }
     }
 }
 
@@ -141,20 +134,20 @@ struct TransactionRowView: View {
                 // Format the amount; credit transactions appear in green, debit in red.
                 Text("\(transaction.currency) \(transaction.amount.description)")
                     .font(.subheadline)
-                    .foregroundColor(transaction.type == .credit ? .green : .red)
+                    .foregroundStyle(transaction.type == .credit ? .green : .red)
             }
 
             // Optional description
             if let description = transaction.description {
                 Text(description)
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
 
             // Display date in a friendly format.
             Text(transaction.date, format: .dateTime.hour().minute().second())
                 .font(.caption)
-                .foregroundColor(.gray)
+                .foregroundStyle(.secondary)
         }
         .padding(.vertical, 8)
     }

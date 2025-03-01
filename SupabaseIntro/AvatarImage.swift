@@ -15,11 +15,9 @@ struct AvatarImage: Transferable {
     }
 
     let uiImage: UIImage
-    let image: Image
 
-    init(uiImage: UIImage, image: Image) {
+    init(uiImage: UIImage) {
         self.uiImage = uiImage
-        self.image = image
     }
 
     static var transferRepresentation: some TransferRepresentation {
@@ -27,8 +25,7 @@ struct AvatarImage: Transferable {
             guard let uiImage = UIImage(data: data) else {
                 throw TransferError.importFailed
             }
-            let image = Image(uiImage: uiImage)
-            return AvatarImage(uiImage: uiImage, image: image)
+            return AvatarImage(uiImage: uiImage)
         }
     }
 }

@@ -30,14 +30,14 @@ struct TransferView: View {
     var body: some View {
         NavigationStack {
             Form {
-                // Recipient email.
-                Section(header: Text("Recipient")) {
+                Section {
                     TextField("Email", text: $email)
                         .keyboardType(.emailAddress)
                         .autocapitalization(.none)
+                } header: {
+                    Text("Recipient")
                 }
 
-                // Transfer details.
                 Section {
                     TextField("Amount", value: $amount, format: .number)
                         .keyboardType(.decimalPad)
@@ -48,11 +48,10 @@ struct TransferView: View {
                     Text("Transfer Details")
                 }
 
-                // Show error message if any.
                 if let errorMessage = errorMessage {
                     Section {
                         Text(errorMessage)
-                            .foregroundColor(.red)
+                            .foregroundStyle(.red)
                     }
                 }
             }
@@ -102,8 +101,8 @@ struct TransferView: View {
 
         // Create the transfer body.
         let transfer = TransferRequest(
-            originAccount: accountID,
-            targetUserEmail: email,
+            senderAccountID: accountID,
+            recepientEmail: email,
             amount: amount,
             currency: currency,
             category: category,

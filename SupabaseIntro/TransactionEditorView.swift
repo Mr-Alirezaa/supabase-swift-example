@@ -10,8 +10,7 @@ import SwiftUI
 /// A view that allows the user to create a new transaction or edit an existing one.
 struct TransactionEditorView: View {
     @Environment(\.dismiss) var dismiss
-    
-    // Editable fields.
+
     @State private var type: TransactionType
     @State private var category: String
     @State private var descriptionText: String
@@ -31,11 +30,16 @@ struct TransactionEditorView: View {
     var onSave: (Transaction) async throws -> Void
 
     /// Initializes the editor view.
+    ///
     /// - Parameters:
     ///   - transaction: The transaction to edit. If nil, the view is used to create a new transaction.
     ///   - accountID: For a new transaction, provide the accountID.
     ///   - onSave: Callback with the saved transaction.
-    init(transaction: Transaction? = nil, accountID: UUID? = nil, onSave: @escaping (Transaction) async throws -> Void) {
+    init(
+        transaction: Transaction? = nil,
+        accountID: UUID? = nil,
+        onSave: @escaping (Transaction) async throws -> Void
+    ) {
         self.transaction = transaction
         self.accountID = accountID
         
@@ -53,44 +57,45 @@ struct TransactionEditorView: View {
     var body: some View {
         NavigationStack {
             Form {
-                // MARK: Transaction Details Section
-                Section(header: Text("Transaction Details")) {
+                Section {
                     Picker("Type", selection: $type) {
                         Text("Credit").tag(TransactionType.credit)
                         Text("Debit").tag(TransactionType.debit)
                     }
                     .pickerStyle(SegmentedPickerStyle())
-                    
+
                     TextField("Category", text: $category)
-                    
-                    // Using a regular text field for description.
+
                     TextField("Description", text: $descriptionText)
+                } header: {
+                    Text("Transaction Details")
                 }
-                
-                // MARK: Amount & Currency Section
-                Section(header: Text("Amount & Currency")) {
+
+                Section {
                     TextField("Amount", text: $amountText)
                         .keyboardType(.decimalPad)
                     TextField("Currency", text: $currency)
+                } header: {
+                    Text("Amount & Currency")
                 }
-                
-                // MARK: Date Section
-                Section(header: Text("Date")) {
+
+                Section {
                     DatePicker("Select Date", selection: $date, displayedComponents: .date)
+                } header: {
+                    Text("Date")
                 }
             }
             .disabled(isLoading)
             .navigationTitle(transaction == nil ? "New Transaction" : "Edit Transaction")
             .toolbar {
                 // Cancel button dismisses the view.
-                if !isLoading {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button("Cancel") {
-                            dismiss()
-                        }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
                     }
+                    .disabled(isLoading)
                 }
-                
+
                 // Save button validates the data and passes the new/updated transaction back.
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if isLoading {
