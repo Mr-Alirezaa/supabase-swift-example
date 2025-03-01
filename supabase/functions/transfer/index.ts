@@ -9,9 +9,17 @@ import { createClient } from 'jsr:@supabase/supabase-js@2'
 Deno.serve(async (req) => {
   try {
     // Parse request body
-    const { originAccount, targetUserEmail, amount, currency, category = "Transfer", description } = await req.json();
+    const { 
+      sender_account_id: senderAccountID, 
+      recepient_email: recepientEmail, 
+      amount, 
+      currency, 
+      category = "Transfer", 
+      description 
+    } = await req.json();
+    
     // Validate request body
-    if (!originAccount || !targetUserEmail || !amount || !currency || !category) {
+    if (!senderAccountID || !recepientEmail || !amount || !currency || !category) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
     }
 
@@ -33,44 +41,58 @@ Deno.serve(async (req) => {
     }
 
     // Get the target user by email
-    const { data: targetUsers, error: userError } = await supabase.rpc(
+    // 
+    // You will need to create a stored procedure to get the user id by email, like this:
+    // 
+    // ```sql
+    // CREATE OR REPLACE FUNCTION get_user_id_by_email(email TEXT)
+    // RETURNS TABLE (id uuid)
+    // SECURITY definer
+    // SET search_path = ''
+    // AS $$
+    // BEGIN
+    //   RETURN QUERY SELECT au.id FROM auth.users au WHERE au.email = $1;
+    // END;
+    // $$ LANGUAGE plpgsql;
+    // ```
+    const { data: recepientUsers, error: userError } = await supabase.rpc(
       "get_user_id_by_email",
       {
-        email: targetUserEmail,
+        email: recepientEmail,
       }
     )
 
-    if (userError || !targetUsers || targetUsers.length === 0) {
+    if (userError || !recepientUsers || recepientUsers.length === 0) {
       return new Response(JSON.stringify({ error: "Target user not found" }), { status: 404 });
     }
 
-    const targetUserId = targetUsers[0].id;
+    const recepientUserID = recepientUsers[0].id;
 
-    // Get target user's first account
-    const { data: targetAccounts, error: accountError } = await supabase
+    // Get target user's first account (for simplicity)
+    const { data: recepientAccounts, error: accountError } = await supabase
       .from("accounts")
       .select("id")
-      .eq("user_id", targetUserId)
+      .eq("user_id", recepientUserID)
       .order("created_at", { ascending: true })
       .limit(1);
 
-    if (accountError || !targetAccounts || targetAccounts.length === 0) {
+    if (accountError || !recepientAccounts || recepientAccounts.length === 0) {
       return new Response(JSON.stringify({ error: "Target user has no accounts" }), { status: 404 });
     }
 
-    const targetAccount = targetAccounts[0].id;
+    const recepientAccount = recepientAccounts[0].id;
 
-    // Insert debit transaction for origin account
+    // Insert debit transaction for sender account
     const { error: debitError } = await supabase
       .from("transactions")
       .insert([
         {
-          account_id: originAccount,
+          account_id: senderAccountID,
           type: "debit",
           amount,
           currency,
           category,
-          description: description || "Transfer to " + targetUserEmail,
+          description: description || "Transfer to " + recepientEmail,
           date: new Date().toISOString(),
         },
       ]);
@@ -80,12 +102,12 @@ Deno.serve(async (req) => {
     }
 
     
-    // Insert credit transaction for target account
+    // Insert credit transaction for recepient account
     const { error: creditError } = await supabase
       .from("transactions")
       .insert([
         {
-          account_id: targetAccount,
+          account_id: recepientAccount,
           type: "credit",
           amount,
           currency,
@@ -100,12 +122,13 @@ Deno.serve(async (req) => {
     }
 
     return new Response(
-      JSON.stringify({ message: "Transaction successful", amount, currency, targetUserEmail }),
+      JSON.stringify({ message: "Transaction successful", amount, currency, recepientEmail }),
       { headers: { "Content-Type": "application/json" }, status: 200 }
     );
 
   } catch (err) {
-    return new Response(JSON.stringify({ error: err.message || "Internal Server Error" }), { status: 500 });
+    const errorMessage = err instanceof Error ? err.message : "Internal Server Error";
+    return new Response(JSON.stringify({ error: errorMessage }), { status: 500 });
   }
 })
 
