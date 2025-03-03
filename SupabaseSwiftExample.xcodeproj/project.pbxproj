@@ -13,26 +13,26 @@
 
 /* Begin PBXFileReference section */
 		EE4B0E282D63BF4500B931A9 /* Supabase.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Supabase.xcconfig; sourceTree = "<group>"; };
-		EE8067A92D58F69900ED4DD0 /* SupabaseIntro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupabaseIntro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE8067A92D58F69900ED4DD0 /* SupabaseSwiftExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupabaseSwiftExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		EE4B0E272D63BEDE00B931A9 /* Exceptions for "SupabaseIntro" folder in "SupabaseIntro" target */ = {
+		EE4B0E272D63BEDE00B931A9 /* Exceptions for "SupabaseSwiftExample" folder in "SupabaseSwiftExample" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Info.plist,
 			);
-			target = EE8067A82D58F69900ED4DD0 /* SupabaseIntro */;
+			target = EE8067A82D58F69900ED4DD0 /* SupabaseSwiftExample */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		EE8067AB2D58F69900ED4DD0 /* SupabaseIntro */ = {
+		EE8067AB2D58F69900ED4DD0 /* SupabaseSwiftExample */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				EE4B0E272D63BEDE00B931A9 /* Exceptions for "SupabaseIntro" folder in "SupabaseIntro" target */,
+				EE4B0E272D63BEDE00B931A9 /* Exceptions for "SupabaseSwiftExample" folder in "SupabaseSwiftExample" target */,
 			);
-			path = SupabaseIntro;
+			path = SupabaseSwiftExample;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -53,7 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				EE4B0E282D63BF4500B931A9 /* Supabase.xcconfig */,
-				EE8067AB2D58F69900ED4DD0 /* SupabaseIntro */,
+				EE8067AB2D58F69900ED4DD0 /* SupabaseSwiftExample */,
 				EE8067AA2D58F69900ED4DD0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +61,7 @@
 		EE8067AA2D58F69900ED4DD0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EE8067A92D58F69900ED4DD0 /* SupabaseIntro.app */,
+				EE8067A92D58F69900ED4DD0 /* SupabaseSwiftExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -69,9 +69,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		EE8067A82D58F69900ED4DD0 /* SupabaseIntro */ = {
+		EE8067A82D58F69900ED4DD0 /* SupabaseSwiftExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EE8067B72D58F69A00ED4DD0 /* Build configuration list for PBXNativeTarget "SupabaseIntro" */;
+			buildConfigurationList = EE8067B72D58F69A00ED4DD0 /* Build configuration list for PBXNativeTarget "SupabaseSwiftExample" */;
 			buildPhases = (
 				EE8067A52D58F69900ED4DD0 /* Sources */,
 				EE8067A62D58F69900ED4DD0 /* Frameworks */,
@@ -82,14 +82,14 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				EE8067AB2D58F69900ED4DD0 /* SupabaseIntro */,
+				EE8067AB2D58F69900ED4DD0 /* SupabaseSwiftExample */,
 			);
-			name = SupabaseIntro;
+			name = SupabaseSwiftExample;
 			packageProductDependencies = (
 				EE8067BB2D58F73700ED4DD0 /* Supabase */,
 			);
 			productName = SupaTest;
-			productReference = EE8067A92D58F69900ED4DD0 /* SupabaseIntro.app */;
+			productReference = EE8067A92D58F69900ED4DD0 /* SupabaseSwiftExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -107,7 +107,7 @@
 					};
 				};
 			};
-			buildConfigurationList = EE8067A42D58F69900ED4DD0 /* Build configuration list for PBXProject "SupabaseIntro" */;
+			buildConfigurationList = EE8067A42D58F69900ED4DD0 /* Build configuration list for PBXProject "SupabaseSwiftExample" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -124,7 +124,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EE8067A82D58F69900ED4DD0 /* SupabaseIntro */,
+				EE8067A82D58F69900ED4DD0 /* SupabaseSwiftExample */,
 			);
 		};
 /* End PBXProject section */
@@ -333,7 +333,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EE8067A42D58F69900ED4DD0 /* Build configuration list for PBXProject "SupabaseIntro" */ = {
+		EE8067A42D58F69900ED4DD0 /* Build configuration list for PBXProject "SupabaseSwiftExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EE8067B52D58F69A00ED4DD0 /* Debug */,
@@ -342,7 +342,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EE8067B72D58F69A00ED4DD0 /* Build configuration list for PBXNativeTarget "SupabaseIntro" */ = {
+		EE8067B72D58F69A00ED4DD0 /* Build configuration list for PBXNativeTarget "SupabaseSwiftExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EE8067B82D58F69A00ED4DD0 /* Debug */,

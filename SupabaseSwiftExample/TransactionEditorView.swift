@@ -1,6 +1,6 @@
 //
 //  TransactionEditorView.swift
-//  SupabaseIntro
+//  SupabaseSwiftExample
 //
 //  Created by Alireza Asadi on 2/10/25.
 //

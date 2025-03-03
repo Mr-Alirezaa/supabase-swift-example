@@ -1,6 +1,6 @@
 //
 //  TransferView.swift
-//  SupabaseIntro
+//  SupabaseSwiftExample
 //
 //  Created by Alireza Asadi on 2/17/25.
 //

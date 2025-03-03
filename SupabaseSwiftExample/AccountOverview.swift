@@ -1,6 +1,6 @@
 //
 //  AccountOverview.swift
-//  SupabaseIntro
+//  SupabaseSwiftExample
 //
 //  Created by Alireza Asadi on 2/11/25.
 //

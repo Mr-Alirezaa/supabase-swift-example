@@ -1,6 +1,6 @@
 //
 //  Bundle+Extensions.swift
-//  SupabaseIntro
+//  SupabaseSwiftExample
 //
 //  Created by Alireza Asadi on 3/1/25.
 //
