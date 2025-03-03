@@ -42,7 +42,8 @@ enum AccountStatus: String, Codable, Hashable, Sendable {
 ///     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
 ///     user_id UUID NOT NULL,
 ///     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-///     status account_status NOT NULL
+///     status account_status NOT NULL,
+///     constraint accounts_user_id_fkey foreign KEY (user_id) references auth.users (id) on delete CASCADE
 /// );
 /// ```
 ///
@@ -85,7 +86,8 @@ struct Account: Codable, Hashable, Identifiable, Sendable {
 ///     currency VARCHAR(3) NOT NULL,   -- Assuming ISO currency codes (e.g., 'USD')
 ///     category TEXT NOT NULL,
 ///     description TEXT,
-///     date TIMESTAMPTZ NOT NULL
+///     date TIMESTAMPTZ NOT NULL,
+///     constraint transactions_account_id_fkey foreign KEY (account_id) references accounts (id) on delete CASCADE
 /// );
 /// ```
 ///
